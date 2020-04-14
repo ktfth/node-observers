@@ -33,6 +33,16 @@ assert.deepEqual(subject.observers, []);
 assert.equal(subject.state, 0);
 assert.equal(subject.getState(), 0);
 assert.ok(subject.setState(1) instanceof Subject);
-class Observer {}
+class Observer {
+  constructor() {
+    this.subject = new Subject();
+  }
+
+  update(fn, ...args) {
+    fn.apply(this, args);
+    return this;
+  }
+}
 let observer = new Observer();
 assert.ok(subject.attach(observer) instanceof Subject);
+assert.ok(observer.update((a, b) => a + b, 1, 2) instanceof Observer);
