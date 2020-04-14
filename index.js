@@ -38,7 +38,7 @@ class Observer {
     this.subject = new Subject();
   }
 
-  update(fn, ...args) {
+  update(fn=function () {}, ...args) {
     fn.apply(this, args);
     return this;
   }
@@ -46,3 +46,20 @@ class Observer {
 let observer = new Observer();
 assert.ok(subject.attach(observer) instanceof Subject);
 assert.ok(observer.update((a, b) => a + b, 1, 2) instanceof Observer);
+
+class BinaryObserver extends Observer {
+  constructor(subject) {
+    super();
+    this.subject = subject;
+  }
+
+  update() {
+    console.log('Binary string: ', (this.subject.getState() >>> 0).toString(2));
+  }
+}
+
+let mainSubject = new Subject();
+
+new BinaryObserver(mainSubject);
+
+subject.setState(15);
