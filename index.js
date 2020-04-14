@@ -9,7 +9,11 @@ class Subject {
   }
 
   notifyAllObservers() {
-    this.observers.forEach(o => o.update());
+    this.observers.forEach(o => {
+      let self = this;
+      o.update();
+      return this;
+    });
     return this;
   }
 
@@ -36,6 +40,7 @@ assert.ok(subject.setState(1) instanceof Subject);
 class Observer {
   constructor() {
     this.subject = new Subject();
+    this.subject.attach(this);
   }
 
   update(fn=function () {}, ...args) {
@@ -49,8 +54,9 @@ assert.ok(observer.update((a, b) => a + b, 1, 2) instanceof Observer);
 
 class BinaryObserver extends Observer {
   constructor(subject) {
-    super();
+    super(subject);
     this.subject = subject;
+    this.subject.attach(this);
   }
 
   update() {
@@ -62,4 +68,4 @@ let mainSubject = new Subject();
 
 new BinaryObserver(mainSubject);
 
-subject.setState(15);
+mainSubject.setState(15);
