@@ -9,7 +9,7 @@ class Subject {
   }
 
   notifyAllObservers() {
-    this.observers.forEach(o => o.notify());
+    this.observers.forEach(o => o.update());
     return this;
   }
 
