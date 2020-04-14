@@ -64,8 +64,37 @@ class BinaryObserver extends Observer {
   }
 }
 
+class OctalObserver extends Observer {
+  constructor(subject) {
+    super(subject);
+    this.subject = subject;
+    this.subject.attach(this);
+  }
+
+  update() {
+    console.log('Octal string: ', (this.subject.getState()).toString(8));
+  }
+}
+
+class HexaObserver extends Observer {
+  constructor(subject) {
+    super(subject);
+    this.subject = subject;
+    this.subject.attach(this);
+  }
+
+  update() {
+    console.log('Hexa string: ', (this.subject.getState()).toString(16).toUpperCase());
+  }
+}
+
 let mainSubject = new Subject();
 
+new HexaObserver(mainSubject);
+new OctalObserver(mainSubject);
 new BinaryObserver(mainSubject);
 
+console.log('First state for: 15');
 mainSubject.setState(15);
+console.log('Second state for: 10');
+mainSubject.setState(10)
