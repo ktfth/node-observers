@@ -48,6 +48,7 @@ class SemaphoreObserver extends lib.Observer {
           break;
         case 4:
           flag = 'RED';
+          break;
       }
     }
 
