@@ -15,26 +15,39 @@ class SemaphoreObserver extends lib.Observer {
     if (orientation === 'horizontal') {
       switch(this.subject.getState()) {
         case 0:
-        flag = 'GREEN';
-        break;
+          flag = 'GREEN';
+          break;
         case 1:
-        flag = 'YELLOW';
-        break;
+          flag = 'YELLOW';
+          break;
         case 2:
-        flag = 'RED';
+          flag = 'RED';
+          break;
+        case 3:
+          flag = 'RED';
+          break;
+        case 4:
+          flag = 'GREEN';
+          break;
       }
     }
 
     if (orientation === 'vertical') {
       switch(this.subject.getState()) {
         case 0:
-        flag = 'RED';
-        break;
+          flag = 'RED';
+          break;
         case 1:
-        flag = 'YELLOW';
-        break;
+          flag = 'RED';
+          break;
         case 2:
-        flag = 'GREEN';
+          flag = 'GREEN';
+          break;
+        case 3:
+          flag = 'YELLOW';
+          break;
+        case 4:
+          flag = 'RED';
       }
     }
 
@@ -56,9 +69,10 @@ class SemaphoreVerticalObserver extends SemaphoreObserver {
   }
 }
 
+let args = process.argv.slice(2);
 let mainSubject = new lib.Subject();
 
 new SemaphoreHorizontalObserver(mainSubject);
 new SemaphoreVerticalObserver(mainSubject);
 
-mainSubject.setState(2);
+mainSubject.setState(args.length ? parseInt(args[0], 10) : 0);
