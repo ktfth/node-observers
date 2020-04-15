@@ -1,5 +1,6 @@
 'use strict';
 
+const root = this;
 const assert = require('assert');
 
 class Subject {
@@ -30,13 +31,8 @@ class Subject {
     return this;
   }
 }
+root.Subject = Subject;
 
-let subject = new Subject();
-assert.ok(subject instanceof Subject);
-assert.deepEqual(subject.observers, []);
-assert.equal(subject.state, 0);
-assert.equal(subject.getState(), 0);
-assert.ok(subject.setState(1) instanceof Subject);
 class Observer {
   constructor() {
     this.subject = new Subject();
@@ -49,8 +45,8 @@ class Observer {
   }
 }
 let observer = new Observer();
-assert.ok(subject.attach(observer) instanceof Subject);
-assert.ok(observer.update((a, b) => a + b, 1, 2) instanceof Observer);
+// assert.ok(subject.attach(observer) instanceof Subject);
+// assert.ok(observer.update((a, b) => a + b, 1, 2) instanceof Observer);
 
 class BinaryObserver extends Observer {
   constructor(subject) {
@@ -88,13 +84,13 @@ class HexaObserver extends Observer {
   }
 }
 
-let mainSubject = new Subject();
+// let mainSubject = new Subject();
 
-new HexaObserver(mainSubject);
-new OctalObserver(mainSubject);
-new BinaryObserver(mainSubject);
+// new HexaObserver(mainSubject);
+// new OctalObserver(mainSubject);
+// new BinaryObserver(mainSubject);
 
-console.log('First state for: 15');
-mainSubject.setState(15);
-console.log('Second state for: 10');
-mainSubject.setState(10)
+// console.log('First state for: 15');
+// mainSubject.setState(15);
+// console.log('Second state for: 10');
+// mainSubject.setState(10)
