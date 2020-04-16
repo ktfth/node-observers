@@ -38,13 +38,23 @@ class HexaObserver extends lib.Observer {
   }
 }
 
-let mainSubject = new lib.Subject();
+class Mediator {}
 
-new HexaObserver(mainSubject);
-new OctalObserver(mainSubject);
-new BinaryObserver(mainSubject);
+class MainMediator extends Mediator {
+  constructor() {
+    super();
+    
+    let mainSubject = new lib.Subject();
 
-console.log('First state for: 15');
-mainSubject.setState(15);
-console.log('Second state for: 10');
-mainSubject.setState(10)
+    new HexaObserver(mainSubject);
+    new OctalObserver(mainSubject);
+    new BinaryObserver(mainSubject);
+
+    console.log('First state for: 15');
+    mainSubject.setState(15);
+    console.log('Second state for: 10');
+    mainSubject.setState(10)
+  }
+}
+
+new MainMediator();
