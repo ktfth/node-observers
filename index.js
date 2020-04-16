@@ -1,7 +1,6 @@
 'use strict';
 
 const root = this;
-const assert = require('assert');
 
 class Subject {
   constructor() {
