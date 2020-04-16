@@ -29,6 +29,8 @@ class SemaphoreObserver extends lib.Observer {
         case 4:
           flag = 'GREEN';
           break;
+        default:
+          flag = 'OFF';
       }
     }
 
@@ -49,6 +51,8 @@ class SemaphoreObserver extends lib.Observer {
         case 4:
           flag = 'RED';
           break;
+        default:
+          flag = 'OFF';
       }
     }
 
@@ -70,10 +74,20 @@ class SemaphoreVerticalObserver extends SemaphoreObserver {
   }
 }
 
-let args = process.argv.slice(2);
-let mainSubject = new lib.Subject();
+class Mediator {}
 
-new SemaphoreHorizontalObserver(mainSubject);
-new SemaphoreVerticalObserver(mainSubject);
+class TrafficMediator extends Mediator {
+  constructor() {
+    super();
 
-mainSubject.setState(args.length ? parseInt(args[0], 10) : 0);
+    let args = process.argv.slice(2);
+    let mainSubject = new lib.Subject();
+
+    new SemaphoreHorizontalObserver(mainSubject);
+    new SemaphoreVerticalObserver(mainSubject);
+
+    mainSubject.setState(args.length ? parseInt(args[0], 10) : 0);
+  }
+}
+
+new TrafficMediator();
