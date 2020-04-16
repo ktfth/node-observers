@@ -29,12 +29,6 @@ class Subject {
     this.observers.push(observer);
     return this;
   }
-
-  subscribe(fn=function () {}, error=null, complete=function () {}) {
-    complete();
-  }
-  next(value) {}
-  complete() {}
 }
 root.Subject = Subject;
 
