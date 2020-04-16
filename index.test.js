@@ -28,7 +28,22 @@ describe('Subject', () => {
     let subject = new lib.Subject();
     assert.ok(subject.setState(1) instanceof lib.Subject);
     assert.equal(subject.getState(), 1);
-  })
+  });
+
+  it('should have subscribe', (done) => {
+    let subject = new lib.Subject();
+    let expected = ['foo', 'bar'];
+
+    let i = 0;
+
+    subject.subscribe((x) => {
+      assert.equal(x, expected[i++]);
+    }, null, done);
+
+    subject.next('foo');
+    subject.next('bar');
+    subject.complete();
+  });
 });
 
 describe('Observer', () => {
@@ -43,7 +58,7 @@ describe('Observer', () => {
     assert.ok(subject.attach(observer) instanceof lib.Subject);
   });
 
-  it('should ', () => {
+  it('should have update', () => {
     let observer = new lib.Observer();
     assert.ok(observer.update((a, b) => a + b, 1, 2) instanceof lib.Observer);
   });
